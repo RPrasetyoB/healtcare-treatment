@@ -1,19 +1,22 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
-
 import {onRequest} from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+import * as express from 'express';
+import "dotenv/config";
+import { dbConnection } from "./config/dbConnection";
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
+const app = express()
+const server_port = process.env.SERVER_PORT || 3001;
 
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+dbConnection()
+
+app.get('/', (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Welcome to Renaldi health-care rest API"
+    })
+})
+
+app.listen(server_port, ()=> {
+  console.log(`server listening at http://localhost:${server_port}`)
+});
+
+exports.app = onRequest(app)
