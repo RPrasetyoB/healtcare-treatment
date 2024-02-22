@@ -1,11 +1,17 @@
-import { initializeFirebase } from "../utils/firebaseService"
+import { initializeFirebase } from "./dbService";
 
-const db = initializeFirebase()
+export const db = initializeFirebase();
 
-export const dbConnection = () => {
-    if (db) {
+export const dbConnection = async () => {
+  try {
+    const response = await db.collection('healthcare').doc('patient').get();
+
+    if (response.exists) {
       console.log("Connected to Firestore database");
     } else {
-      console.error("Failed to connect to Firestore database");
+      console.log("Failed to connect to Firestore database");
     }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
