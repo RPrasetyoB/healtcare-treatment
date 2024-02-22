@@ -4,7 +4,7 @@ export const db = initializeFirebase();
 
 export const dbConnection = async () => {
   try {
-    const response = await db.collection('healthcare').doc('patient').get();
+    const response = await db.collection('patient').doc('1').get();
 
     if (response.exists) {
       console.log("Connected to Firestore database");

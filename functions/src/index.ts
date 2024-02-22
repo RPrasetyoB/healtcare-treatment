@@ -1,12 +1,16 @@
 import {onRequest} from "firebase-functions/v2/https";
 import express from 'express';
-import "dotenv/config";
+import cors from 'cors';
 import { dbConnection } from "./config/dbConnection";
 import router from "./routes";
 import errorCatch from "./middleware/errorCatch";
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express()
 app.use(express.json());
+app.use(cors())
 
 const server_port = process.env.SERVER_PORT || 3001;
 

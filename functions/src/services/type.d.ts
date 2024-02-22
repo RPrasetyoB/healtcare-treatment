@@ -15,3 +15,10 @@ interface PatientTreatmentData {
     patient: any;
     treatments: Patient[];
 }
+
+interface PatientTreatmentDataPromise{
+    success: boolean;
+    data: Patient[];
+    status?: number;
+    message: string;
+}

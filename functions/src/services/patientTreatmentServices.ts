@@ -96,11 +96,7 @@ const createPatientTreatmentService = async ({ patientId, patientName, treatment
 };
 
 //get all registered patients
-const getAllPatientService = async (): Promise<{
-  success: boolean;
-  data: Patient[];
-  message: string;
-}> => {
+const getAllPatientService = async (): Promise<{success: boolean; data: Patient[]; status?: number; message: string;}> => {
   try {
     const snapshot = await db.collection("patient").get();
     const allPatients: Patient[] = [];
@@ -110,6 +106,15 @@ const getAllPatientService = async (): Promise<{
         ...doc.data(),
       });
     });
+    
+    if (!allPatients.length) {
+      return {
+        success: true,
+        status: 201,
+        message: "No data",
+        data: allPatients
+      };
+    }
     return {
       success: true,
       data: allPatients,
@@ -125,12 +130,18 @@ const getAllPatientService = async (): Promise<{
 };
 
 //get patient treatment history
-const getPatientTreatmentService = async (
-  patientId: string
-): Promise<{ success: boolean; data: Patient[] | any; message: string }> => {
+const getPatientTreatmentService = async ( patientId: string ): Promise<{ success: boolean; data: Patient[] | any; status?: number; message: string }> => {
   try {
     const patientSnapshot = await db.collection("patient").doc(patientId).get();
     const patientData = patientSnapshot.data();
+
+    if (!patientData) {
+      throw new ErrorHandler({
+        success: false,
+        message: "Patient not found",
+        status: 404,
+      });
+    }
 
     const treatmentsSnapshot = await db
       .collection("treatment")
@@ -145,6 +156,15 @@ const getPatientTreatmentService = async (
       });
     });
 
+    if (!allTreatments.length) {
+      return {
+        success: true,
+        status: 201,
+        message: "No treatment history for current patient",
+        data: allTreatments
+      };
+    }
+
     const patientTreatmentData: PatientTreatmentData = {
       patient: patientData,
       treatments: allTreatments,
@@ -152,6 +172,7 @@ const getPatientTreatmentService = async (
 
     return {
       success: true,
+      status: 200,
       data: patientTreatmentData,
       message: "Successfully retrieved patient's treatment history",
     };

@@ -29,7 +29,12 @@ const getAllPatients = async (req: Request, res: Response, next: NextFunction) =
     try {
         
         const response = await getAllPatientService();
-        if(response.success) {
+        if(response.status == 201){
+            return res.status(201).json({
+                message: response.message,
+                data: response.data
+            })
+        } if(response.success) {
             return res.status(200).json({
                 message: response.message,
                 data: response.data
@@ -45,7 +50,12 @@ const getPatientTreatmens = async (req: Request, res: Response, next: NextFuncti
     try {
         const { patient_id } = req.params
         const response = await getPatientTreatmentService(patient_id);
-        if(response.success) {
+        if(response.status == 201){
+            return res.status(201).json({
+                message: response.message,
+                data: response.data
+            })
+        }else if(response.status == 200) {
             return res.status(200).json({
                 message: response.message,
                 data: response.data
