@@ -56,8 +56,10 @@ This project is a full stack application for managing patient data, treatment re
    npm install
    npm start
    ```
-   
-   open browser and input url  http://localhost:5173
+
+4.  open browser and input url [http://localhost:5173](http://localhost:5173)
+
+    Note : do not run "npm update" because of specific version in some library
 
 ## API documentation:
 
