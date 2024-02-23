@@ -19,8 +19,7 @@
     "firebase-admin": "^11.8.0",
     "firebase-functions": "^4.3.1",
     "node": "^21.6.2",
-    "uuid": "^9.0.1",
-    "whatwg-url": "^14.0.0"
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
