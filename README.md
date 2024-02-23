@@ -48,10 +48,9 @@ This project is a full stack application for managing patient data, treatment re
    npm install
    npm start
    ```
+   open browser and input url  http://localhost:5173
 
-        open browser and input url  http://localhost:5173
-
-### API documentation:
+## API documentation:
 
 - Postman documentation: [healthcare-API](https://documenter.getpostman.com/view/30790473/2sA2rB1NQA)
 
