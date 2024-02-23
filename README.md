@@ -18,6 +18,8 @@ This project is a full stack application for managing patient data, treatment re
 - **Bundler**: Vite
 - **UI Library**: Material-UI
 
+###### Note : ".env" file for Back-end and Front-end are deliberately pushed to GitHub to make local testing easier
+
 ## Features
 
 - **Patient Data Management**: Input and store patient information securely.
@@ -57,7 +59,7 @@ This project is a full stack application for managing patient data, treatment re
    npm start
    ```
 
-4.  open browser and input url [http://localhost:5173](http://localhost:5173)
+4. open browser and input url [http://localhost:5173](http://localhost:5173)
 
     Note : do not run "npm update" because of specific version in some library
 
