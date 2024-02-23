@@ -4,7 +4,7 @@
   "description": "healthcare-server",
   "scripts": {
     "build": "tsc",
-    "start": "node --trace-deprecation dist/index.js",
+    "start": "tsc && node dist/index.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "deploy": "firebase deploy --only functions"
   },

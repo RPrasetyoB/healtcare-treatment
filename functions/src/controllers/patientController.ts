@@ -20,15 +20,16 @@ const createPatientTreatment = async (req: Request, res: Response, next: NextFun
             })
         }
     } catch (error) {
+        // error will send to next middleware
         next(error)
     }
 }
 
 // get all registered patients
 const getAllPatients = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        
+    try {        
         const response = await getAllPatientService();
+        //return 201 if no patient / no data in DB
         if(response.status == 201){
             return res.status(201).json({
                 message: response.message,
@@ -41,6 +42,7 @@ const getAllPatients = async (req: Request, res: Response, next: NextFunction) =
             })
         }
     } catch (error) {
+        // error will send to next middleware
         next(error)
     }
 }
@@ -50,6 +52,7 @@ const getPatientTreatmens = async (req: Request, res: Response, next: NextFuncti
     try {
         const { patient_id } = req.params
         const response = await getPatientTreatmentService(patient_id);
+        //return 201 if patient existed but no treatment data in DB
         if(response.status == 201){
             return res.status(201).json({
                 message: response.message,
@@ -62,6 +65,7 @@ const getPatientTreatmens = async (req: Request, res: Response, next: NextFuncti
             })
         }
     } catch (error) {
+        // error will send to next middleware
         next(error)
     }
 }

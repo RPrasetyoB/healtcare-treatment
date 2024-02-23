@@ -18,7 +18,7 @@ interface PatientTreatmentData {
 
 interface PatientTreatmentDataPromise{
     success: boolean;
-    data: Patient[];
+    data: Patient[] | any;
     status?: number;
     message: string;
 }

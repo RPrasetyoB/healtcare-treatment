@@ -1,7 +1,8 @@
+// custom error handler
 class ErrorHandler extends Error {
     public success: boolean;
     public status: number;
-  
+
     constructor({
       success,
       message,

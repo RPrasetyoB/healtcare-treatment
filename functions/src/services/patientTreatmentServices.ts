@@ -9,13 +9,11 @@ const createPatientTreatmentService = async ({ patientId, patientName, treatment
             // Check if patient already exists
             const existingPatientRef = db.collection("patient").doc(patientId);
             const existingPatient = await transaction.get(existingPatientRef);
-
+            // initial variable
             let newTreatmentObject, newMedicationObject;
-
-            // If patient exists, return existing data
+            // If patient exists, return existing data, and only add new treatment & new medication
             if (existingPatient.exists) {
                 const patientData = existingPatient.data();
-
                 // Create new treatment
                 const treatmentId = uuidv4();
                 const newTreatmentRef = db.collection("treatment").doc(treatmentId);
@@ -26,7 +24,6 @@ const createPatientTreatmentService = async ({ patientId, patientName, treatment
                     treatment_cost: cost,
                 };
                 transaction.set(newTreatmentRef, newTreatmentObject);
-
                 // Create new medication
                 const medicationId = uuidv4();
                 const newMedicationRef = db.collection("medication").doc(medicationId);
@@ -35,7 +32,6 @@ const createPatientTreatmentService = async ({ patientId, patientName, treatment
                     medication_description: medication,
                 };
                 transaction.set(newMedicationRef, newMedicationObject);
-
                 // Return existing patient data along with new treatment and medication data
                 return {
                     patient: patientData,
@@ -50,7 +46,6 @@ const createPatientTreatmentService = async ({ patientId, patientName, treatment
                     patient_name: patientName,
                 };
                 transaction.set(newPatientRef, patientObject);
-
                 // Create new treatment
                 const treatmentId = uuidv4();
                 const newTreatmentRef = db.collection("treatment").doc(treatmentId);
@@ -61,7 +56,6 @@ const createPatientTreatmentService = async ({ patientId, patientName, treatment
                     treatment_cost: cost,
                 };
                 transaction.set(newTreatmentRef, newTreatmentObject);
-
                 // Create new medication
                 const medicationId = uuidv4();
                 const newMedicationRef = db.collection("medication").doc(medicationId);
@@ -70,7 +64,6 @@ const createPatientTreatmentService = async ({ patientId, patientName, treatment
                     medication_description: medication,
                 };
                 transaction.set(newMedicationRef, newMedicationObject);
-
                 // Return new patient, treatment, and medication data
                 return {
                     patient: patientObject,
@@ -80,7 +73,7 @@ const createPatientTreatmentService = async ({ patientId, patientName, treatment
                 };
             }
         });
-
+        // return to controller
         return {
             success: true,
             data: result,
@@ -96,7 +89,7 @@ const createPatientTreatmentService = async ({ patientId, patientName, treatment
 };
 
 //get all registered patients
-const getAllPatientService = async (): Promise<{success: boolean; data: Patient[]; status?: number; message: string;}> => {
+const getAllPatientService = async (): Promise<PatientTreatmentDataPromise> => {
   try {
     const snapshot = await db.collection("patient").get();
     const allPatients: Patient[] = [];
@@ -130,7 +123,7 @@ const getAllPatientService = async (): Promise<{success: boolean; data: Patient[
 };
 
 //get patient treatment history
-const getPatientTreatmentService = async ( patientId: string ): Promise<{ success: boolean; data: Patient[] | any; status?: number; message: string }> => {
+const getPatientTreatmentService = async ( patientId: string ): Promise<PatientTreatmentDataPromise> => {
   try {
     const patientSnapshot = await db.collection("patient").doc(patientId).get();
     const patientData = patientSnapshot.data();
@@ -185,8 +178,4 @@ const getPatientTreatmentService = async ( patientId: string ): Promise<{ succes
   }
 };
 
-export {
-    createPatientTreatmentService,
-    getAllPatientService,
-    getPatientTreatmentService,
-};
+export { createPatientTreatmentService, getAllPatientService, getPatientTreatmentService };
