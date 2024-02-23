@@ -3,89 +3,96 @@ import { db } from "../config/dbConnection";
 import { v4 as uuidv4 } from "uuid";
 
 // Create new patient data and treatment
-const createPatientTreatmentService = async ({ patientId, patientName, treatment, date, cost, medication }: PatientTreamentInput) => {
-    try {
-        const result = await db.runTransaction(async (transaction) => {
-            // Check if patient already exists
-            const existingPatientRef = db.collection("patient").doc(patientId);
-            const existingPatient = await transaction.get(existingPatientRef);
-            // initial variable
-            let newTreatmentObject, newMedicationObject;
-            // If patient exists, return existing data, and only add new treatment & new medication
-            if (existingPatient.exists) {
-                const patientData = existingPatient.data();
-                // Create new treatment
-                const treatmentId = uuidv4();
-                const newTreatmentRef = db.collection("treatment").doc(treatmentId);
-                newTreatmentObject = {
-                    patient_id: patientId,
-                    treatment_description: treatment,
-                    treatment_date: date,
-                    treatment_cost: cost,
-                };
-                transaction.set(newTreatmentRef, newTreatmentObject);
-                // Create new medication
-                const medicationId = uuidv4();
-                const newMedicationRef = db.collection("medication").doc(medicationId);
-                newMedicationObject = {
-                    patient_id: patientId,
-                    medication_description: medication,
-                };
-                transaction.set(newMedicationRef, newMedicationObject);
-                // Return existing patient data along with new treatment and medication data
-                return {
-                    patient: patientData,
-                    newTreatment: newTreatmentObject,
-                    newMedication: newMedicationObject,
-                    message: "Patient exists. Added new treatment and medication."
-                };
-            } else {
-                // Create new patient
-                const newPatientRef = db.collection("patient").doc(patientId);
-                const patientObject = {
-                    patient_name: patientName,
-                };
-                transaction.set(newPatientRef, patientObject);
-                // Create new treatment
-                const treatmentId = uuidv4();
-                const newTreatmentRef = db.collection("treatment").doc(treatmentId);
-                newTreatmentObject = {
-                    patient_id: patientId,
-                    treatment_description: treatment,
-                    treatment_date: date,
-                    treatment_cost: cost,
-                };
-                transaction.set(newTreatmentRef, newTreatmentObject);
-                // Create new medication
-                const medicationId = uuidv4();
-                const newMedicationRef = db.collection("medication").doc(medicationId);
-                newMedicationObject = {
-                    patient_id: patientId,
-                    medication_description: medication,
-                };
-                transaction.set(newMedicationRef, newMedicationObject);
-                // Return new patient, treatment, and medication data
-                return {
-                    patient: patientObject,
-                    newTreatment: newTreatmentObject,
-                    newMedication: newMedicationObject,
-                    message: "New patient, treatment, and medication data created."
-                };
-            }
-        });
-        // return to controller
-        return {
-            success: true,
-            data: result,
-            message: result.message
+const createPatientTreatmentService = async ({
+  patientId,
+  patientName,
+  treatment,
+  date,
+  cost,
+  medication,
+}: PatientTreamentInput) => {
+  try {
+    const result = await db.runTransaction(async (transaction) => {
+      // Check if patient already exists
+      const existingPatientRef = db.collection("patient").doc(patientId);
+      const existingPatient = await transaction.get(existingPatientRef);
+      // initial variable
+      let newTreatmentObject, newMedicationObject;
+      // If patient exists, return existing data, and only add new treatment & new medication
+      if (existingPatient.exists) {
+        const patientData = existingPatient.data();
+        // Create new treatment
+        const treatmentId = uuidv4();
+        const newTreatmentRef = db.collection("treatment").doc(treatmentId);
+        newTreatmentObject = {
+          patient_id: patientId,
+          treatment_description: treatment,
+          treatment_date: date,
+          treatment_cost: cost,
         };
-    } catch (error: any) {
-        throw new ErrorHandler({
-            success: false,
-            message: error.message,
-            status: error.status,
-        });
-    }
+        transaction.set(newTreatmentRef, newTreatmentObject);
+        // Create new medication
+        const medicationId = uuidv4();
+        const newMedicationRef = db.collection("medication").doc(medicationId);
+        newMedicationObject = {
+          patient_id: patientId,
+          medication_description: medication,
+        };
+        transaction.set(newMedicationRef, newMedicationObject);
+        // Return existing patient data along with new treatment and medication data
+        return {
+          patient: patientData,
+          newTreatment: newTreatmentObject,
+          newMedication: newMedicationObject,
+          message: "Patient exists. Added new treatment and medication.",
+        };
+      } else {
+        // Create new patient
+        const newPatientRef = db.collection("patient").doc(patientId);
+        const patientObject = {
+          patient_name: patientName,
+        };
+        transaction.set(newPatientRef, patientObject);
+        // Create new treatment
+        const treatmentId = uuidv4();
+        const newTreatmentRef = db.collection("treatment").doc(treatmentId);
+        newTreatmentObject = {
+          patient_id: patientId,
+          treatment_description: treatment,
+          treatment_date: date,
+          treatment_cost: cost,
+        };
+        transaction.set(newTreatmentRef, newTreatmentObject);
+        // Create new medication
+        const medicationId = uuidv4();
+        const newMedicationRef = db.collection("medication").doc(medicationId);
+        newMedicationObject = {
+          patient_id: patientId,
+          medication_description: medication,
+        };
+        transaction.set(newMedicationRef, newMedicationObject);
+        // Return new patient, treatment, and medication data
+        return {
+          patient: patientObject,
+          newTreatment: newTreatmentObject,
+          newMedication: newMedicationObject,
+          message: "New patient, treatment, and medication data created.",
+        };
+      }
+    });
+    // return to controller
+    return {
+      success: true,
+      data: result,
+      message: result.message,
+    };
+  } catch (error: any) {
+    throw new ErrorHandler({
+      success: false,
+      message: error.message,
+      status: error.status,
+    });
+  }
 };
 
 //get all registered patients
@@ -99,13 +106,13 @@ const getAllPatientService = async (): Promise<PatientTreatmentDataPromise> => {
         ...doc.data(),
       });
     });
-    
+
     if (!allPatients.length) {
       return {
         success: true,
         status: 201,
         message: "No data",
-        data: allPatients
+        data: allPatients,
       };
     }
     return {
@@ -123,7 +130,7 @@ const getAllPatientService = async (): Promise<PatientTreatmentDataPromise> => {
 };
 
 //get patient treatment history
-const getPatientTreatmentService = async ( patientId: string ): Promise<PatientTreatmentDataPromise> => {
+const getPatientTreatmentService = async (patientId: string): Promise<PatientTreatmentDataPromise> => {
   try {
     const patientSnapshot = await db.collection("patient").doc(patientId).get();
     const patientData = patientSnapshot.data();
@@ -154,7 +161,7 @@ const getPatientTreatmentService = async ( patientId: string ): Promise<PatientT
         success: true,
         status: 201,
         message: "No treatment history for current patient",
-        data: allTreatments
+        data: allTreatments,
       };
     }
 
@@ -178,4 +185,8 @@ const getPatientTreatmentService = async ( patientId: string ): Promise<PatientT
   }
 };
 
-export { createPatientTreatmentService, getAllPatientService, getPatientTreatmentService };
+export {
+  createPatientTreatmentService,
+  getAllPatientService,
+  getPatientTreatmentService,
+};

@@ -9,7 +9,7 @@ This project is a full stack application for managing patient data, treatment re
 - **Language**: TypeScript
 - **Framework**: Express.js
 - **Database**: Firestore
-- **Serverless Functions**: Firebase Functions
+- **Serverless Functions**: Firebase Functions (Back-end not deployed, but ready to deploy)
 
 ### Frontend
 
@@ -23,6 +23,14 @@ This project is a full stack application for managing patient data, treatment re
 - **Patient Data Management**: Input and store patient information securely.
 - **Treatment Records**: Record and manage treatment histories for each patient.
 - **Medication Prescriptions**: Store prescribed medications for patients.
+
+## Pre-requisite
+
+- NodeJS version : v20.11.0
+
+- Git version : 2.41.0
+
+- (optional) Visual Studio code / any IDE
 
 ## Setup
 
@@ -48,17 +56,18 @@ This project is a full stack application for managing patient data, treatment re
    npm install
    npm start
    ```
+   
    open browser and input url  http://localhost:5173
 
 ## API documentation:
 
 - Postman documentation: [healthcare-API](https://documenter.getpostman.com/view/30790473/2sA2rB1NQA)
 
-- Endpoints: 
+- End points: 
   
-  | Endpoint                                           | Route                           | Req.body                                                                                   | Response status    |
-  | -------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------ | ------------------ |
-  | Root                                               | GET: "/"                        | -                                                                                          | 200, 500           |
-  | Add New patients, treatment, medication prescribed | POST: "/v1/treatment"           | patient_name, treatment_description, treatment_date, treatment_cost, medication_prescribed | 200, 201, 500      |
-  | Get all patients                                   | GET: "/v1/treatment"            | -                                                                                          | 200, 201, 500      |
-  | Get treatment & medication history by patient_id   | GET: "/v1/treatment/patient_id" | -                                                                                          | 200, 201, 404, 500 |
+  | Functionality                                      | Route                           | Req.body                                                                                               |
+  | -------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------ |
+  | Root                                               | GET: "/"                        | -                                                                                                      |
+  | Add New patients, treatment, medication prescribed | POST: "/v1/treatment"           | patient_name, treatment_description, treatment_date (unix date), treatment_cost, medication_prescribed |
+  | Get all patients                                   | GET: "/v1/treatment"            | -                                                                                                      |
+  | Get treatment & medication history by patient_id   | GET: "/v1/treatment/patient_id" | -                                                                                                      |
