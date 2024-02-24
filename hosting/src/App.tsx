@@ -1,6 +1,6 @@
 import './App.css'
 import CustomThemeProvider from './Theme'
-import MainPage from './page/MainPage'
+import { MainPage } from './page'
 import { GlobalState } from './utils'
 
 const App = ()=> {

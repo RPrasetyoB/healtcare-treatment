@@ -1,3 +1,4 @@
-export { default as PatientForm } from "./PatientForm"
-export { default as PatientMedicationForm } from "./PatientMedicationForm"
-export { default as PatientTreatmentForm } from "./PatientTreatmentForm"
+export { default as PatientData } from "./PatientData";
+export { default as PatientTreatment } from "./PatientTreatment";
+export { default as PatientMedication } from "./PatientMedication";
+export { default as TreatmentDate } from "./TreatmentDate";

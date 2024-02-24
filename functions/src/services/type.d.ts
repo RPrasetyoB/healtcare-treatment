@@ -14,6 +14,7 @@ interface Patient {
 interface PatientTreatmentData {
     patient: any;
     treatments: Patient[];
+    medications: Patient[];
 }
 
 interface PatientTreatmentDataPromise{

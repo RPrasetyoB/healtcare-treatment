@@ -156,6 +156,19 @@ const getPatientTreatmentService = async (patientId: string): Promise<PatientTre
       });
     });
 
+    const medicationsSnapshot = await db
+      .collection("medication")
+      .where("patient_id", "==", patientId)
+      .get();
+
+    const allMedications: Patient[] = [];
+    medicationsSnapshot.forEach((doc) => {
+      allMedications.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+
     if (!allTreatments.length) {
       return {
         success: true,
@@ -168,6 +181,7 @@ const getPatientTreatmentService = async (patientId: string): Promise<PatientTre
     const patientTreatmentData: PatientTreatmentData = {
       patient: patientData,
       treatments: allTreatments,
+      medications: allMedications
     };
 
     return {
