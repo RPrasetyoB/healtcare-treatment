@@ -51,7 +51,7 @@ This project is a full stack application for managing patient data, treatment re
    npm start
    ```
    
-   Wait until "Connected to Firestore database" appears in the terminal; the API will then be ready to be consumed.
+   Wait until "Connected to Firestore database" appears in the terminal; then API will be ready to be consumed.
 
 3. Set up Front-end:
    
