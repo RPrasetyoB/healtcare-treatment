@@ -18,7 +18,7 @@ This project is a full stack application for managing patient data, treatment re
 - **Bundler**: Vite
 - **UI Library**: Material-UI
 
-###### Note : ".env" file for Back-end and Front-end are deliberately pushed to GitHub to make local testing easier
+###### Note : example of `.env` file for Back-end and Front-end are available on the `.env.example`
 
 ## Features
 
