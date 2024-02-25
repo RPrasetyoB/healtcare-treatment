@@ -50,6 +50,7 @@ This project is a full stack application for managing patient data, treatment re
    npm install
    npm start
    ```
+   
    Wait until "Connected to Firestore database" appears in the terminal; the API will then be ready to be consumed.
 
 3. Set up Front-end:
@@ -61,10 +62,10 @@ This project is a full stack application for managing patient data, treatment re
    ```
 
 4. open browser and input url [http://localhost:5173](http://localhost:5173)
-
+   
    Note : do not run "npm update" because of specific version in some library
 
-## API documentation:
+## API documentation
 
 - Postman documentation: [healthcare-API](https://documenter.getpostman.com/view/30790473/2sA2rB1NQA)
 
@@ -76,3 +77,82 @@ This project is a full stack application for managing patient data, treatment re
   | Add New patients, treatment, medication prescribed | POST: "/v1/treatment"           | patient_name, treatment_description, treatment_date (unix date), treatment_cost, medication_prescribed |
   | Get all patients                                   | GET: "/v1/treatment"            | -                                                                                                      |
   | Get treatment & medication history by patient_id   | GET: "/v1/treatment/patient_id" | -                                                                                                      |
+
+## UI Documentation
+
+#### Features
+
+- **Input New Patient Data / Update Existing Patient Data**: Implement form validation where the Submit button remains disabled until validation passes.
+
+- **Storing Treatment and Medication to Database**: Ensure seamless storage of treatment and medication details in the database.
+
+- **Retrieving Patient Treatment History**: Allow users to access and review the treatment history of patients.
+
+### Overview
+
+- **Light Mode**: Provides a visually appealing interface with light color schemes for comfortable viewing.
+
+- **Dark Mode**: Offers an alternative interface with dark color schemes for reduced eye strain, especially in low-light environments.
+
+### API Integration
+
+- Fetch API codes :
+
+```ts
+export const postTreatment = async (values: any) => {
+    try {
+        const response = await fetch(API_URL + "/v1/treatment", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+        });
+        if (response.ok) {
+            return true;
+        } else {
+            console.error("Failed to submit treatment data.");
+            return false;
+        }
+    } catch (error) {
+        console.error("Error occurred while submitting treatment data:", error);
+        return false;
+    }
+}
+
+export const fetchPatientData = async () => {
+    try {
+        const response = await fetch(API_URL + "/v1/treatment", {
+            method: "GET",
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return data.data;
+        } else {
+            console.error("Failed to fetch patient data.");
+            return null;
+        }
+    } catch (error) {
+        console.error("Error occurred while fetching patient data:", error);
+        return null;
+    }
+}
+
+export const fetchTreatmentData = async (selectedId: string | null) => {
+    try {
+        const response = await fetch(API_URL + `/v1/treatment/${selectedId}`, {
+            method: "GET",
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        } else {
+            console.error("Failed to fetch treatment data.");
+            return null;
+        }
+    } catch (error) {
+        console.error("Error occurred while fetching treatment data:", error);
+        return null;
+    }
+}
+```

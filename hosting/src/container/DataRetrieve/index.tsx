@@ -4,9 +4,9 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useContext, useEffect, useState } from "react";
 import { Button, Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import { API_URL } from "../../utils/url";
 import { PublicData } from "../../utils/GlobalState";
 import styles from "./data.module.scss";
+import { fetchPatientData, fetchTreatmentData } from "../../utils/fetchAPI";
 
 const DataRetrieve = ()=> {
   const { patientData, setPatientData, dataAdded } = useContext(PublicData);
@@ -16,13 +16,10 @@ const DataRetrieve = ()=> {
 
   const fetchPatient = async () => {
     try {
-      const response = await fetch(API_URL + "/v1/treatment", {
-        method: "GET",
-      });
-      if (response?.ok) {
+      const response = await fetchPatientData()
+      if (response && response?.ok) {
         const data = await response.json();
         setPatientData(data.data);
-        console.log("treatment", data);
       }
     } catch (error) {
       console.log(error);
@@ -31,12 +28,9 @@ const DataRetrieve = ()=> {
 
   const fetchTreatment = async () => {
     try {
-      const response = await fetch(API_URL + `/v1/treatment/${selectedId}`, {
-        method: "GET",
-      });
+      const response = await fetchTreatmentData(selectedId)
       if (response?.ok) {
         const data = await response.json();
-        console.log("treatment", data);
         // Process the treatments and medications
         const treatmentDetails = data.data.treatments.map((treatment: any) => {
           // Determine the type of treatment_date and convert it to a JavaScript Date object
@@ -61,7 +55,6 @@ const DataRetrieve = ()=> {
             patient_name: data.data.patient.patient_name, // Include patient's name
           };
         });
-
         // Process medication descriptions
         const medicationDescriptions = data.data.medications
           .map(
@@ -69,13 +62,11 @@ const DataRetrieve = ()=> {
               medication.medication_description?.join(", ") ?? ""
           )
           .join(", ");
-
         // Combine treatment details with medication descriptions
         const combinedDetails = treatmentDetails.map((detail: Treatment) => ({
           ...detail,
           medication_description: medicationDescriptions,
         }));
-
         setTreatment(combinedDetails);
       }
     } catch (error) {
@@ -101,7 +92,7 @@ const DataRetrieve = ()=> {
   const columns: GridColDef[] = [
     { field: "id",
       headerName: "ID",
-      width: 100,
+      width: 90,
     },
     {
       field: "patient_name",
@@ -180,7 +171,7 @@ const DataRetrieve = ()=> {
             {treatment[0]?.patient_name}'s treatment histories
           </DialogTitle>
           <DialogContent>
-            <DataGrid rows={treatment} columns={columns2} getRowHeight={() => 'auto'}/>
+            <DataGrid rows={treatment} columns={columns2} getRowHeight={() => 'auto' } disableRowSelectionOnClick />
           </DialogContent>
         </Dialog>
       </div>

@@ -1,11 +1,11 @@
 import { SelectChangeEvent, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ChangeEvent, ChangeEventHandler, useContext, useEffect, useState } from "react";
+import Box from "@mui/material/Box";
 import { PublicData } from "../../utils/GlobalState";
 import { PatientData, PatientMedication, PatientTreatment, TreatmentDate } from "../../component";
-import Box from "@mui/material/Box";
-import { API_URL } from "../../utils/url";
 import styles from "./patientForm.module.scss";
+import { postTreatment } from "../../utils/fetchAPI";
 
 // currency formater
 const formatNumber = (value: string) => {
@@ -108,14 +108,8 @@ const PatientForm = () => {
         treatment_cost: treatmentCost
     };
     try {
-        const response = await fetch(API_URL + "/v1/treatment", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                },
-            body: JSON.stringify(values), 
-        })
-        if(response.ok){
+        const response = await postTreatment(values)
+        if(response){
             setDataAdded(prev => !prev)
             setTimeout(()=> {
                 setSubmiting(false)
