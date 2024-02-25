@@ -1,4 +1,4 @@
-import { SelectChangeEvent } from "@mui/material";
+import { SelectChangeEvent, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ChangeEvent, ChangeEventHandler, useContext, useEffect, useState } from "react";
 import { PublicData } from "../../utils/GlobalState";
@@ -14,7 +14,7 @@ const formatNumber = (value: string) => {
 
 const PatientForm = () => {
   // react states
-  const { patientData, setDataAdded } = useContext(PublicData);
+  const { patientData, setDataAdded, darkMode } = useContext(PublicData);
   const [isSubmiting, setSubmiting] = useState(false);
   const [patientId, setPatientId] = useState("");
   const [patientName, setPatientName] = useState("");
@@ -130,34 +130,38 @@ const PatientForm = () => {
   };
 
   return (
-    <Box
-      component="form"
-      autoComplete="off"
-      className={styles.formContainer}
-      onSubmit={handleSubmit}
-    >
-      <PatientData handleInputForm={handleInputForm} errors={errors} patientId={patientId} patientName={patientName} />
-      <PatientTreatment handleChangeTreatment={handleChangeTreatment} treatments={treatments}/>
-      <PatientMedication handleChangeMedication={handleChangeMedication} medications={medications}/>
-      <TreatmentDate handleInputChange={handleInputChange} handleDatePickerChange={handleDatePickerChange} treatmentDate={treatmentDate} costFormat={costFormat}/>
-      <LoadingButton
-        type="submit"
-        loading={isSubmiting}
-        loadingIndicator="Submiting..."
-        variant="contained"
-        sx={{ mt: 2, "&:hover": { bgcolor: "#000" } }}
-        disabled= {
-          !treatmentDate ||
-          Boolean(errors.patientId) ||
-          treatmentCost == "" ||
-          patientId == "" ||
-          patientName == "" ||
-          treatments.length < 0 ||
-          medications.length < 0
-        }
+    <Box className={styles.container}>
+      <Typography variant="h5" className={styles.title}>Input Patient Data</Typography>
+      <Box
+        component="form"
+        autoComplete="off"
+        sx={{border: 1, borderColor: darkMode ? "white" : "black"}}
+        className={styles.formContainer}
+        onSubmit={handleSubmit}
       >
-        Submit
-      </LoadingButton>
+        <PatientData handleInputForm={handleInputForm} errors={errors} patientId={patientId} patientName={patientName} />
+        <PatientTreatment handleChangeTreatment={handleChangeTreatment} treatments={treatments}/>
+        <PatientMedication handleChangeMedication={handleChangeMedication} medications={medications}/>
+        <TreatmentDate handleInputChange={handleInputChange} handleDatePickerChange={handleDatePickerChange} treatmentDate={treatmentDate} costFormat={costFormat}/>
+        <LoadingButton
+          type="submit"
+          loading={isSubmiting}
+          loadingIndicator="Submiting..."
+          variant="contained"
+          sx={{ mt: 2, "&:hover": { bgcolor: "#000" } }}
+          disabled= {
+            !treatmentDate ||
+            Boolean(errors.patientId) ||
+            treatmentCost == "" ||
+            patientId == "" ||
+            patientName == "" ||
+            treatments.length < 0 ||
+            medications.length < 0
+          }
+        >
+          Submit
+        </LoadingButton>
+      </Box>
     </Box>
   );
 };

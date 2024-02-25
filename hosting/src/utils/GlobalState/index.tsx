@@ -13,7 +13,7 @@ interface ContextProps {
 }
 
 const defaultValue: ContextProps = {
-    darkMode: true,
+    darkMode: false,
     setDarkMode: () => {},
     patientData : [],
     setPatientData : () => {},

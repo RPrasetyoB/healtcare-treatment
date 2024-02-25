@@ -2,21 +2,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useContext, useEffect, useState } from "react";
+import { Button, Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
 import { API_URL } from "../../utils/url";
 import { PublicData } from "../../utils/GlobalState";
-import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
+import styles from "./data.module.scss";
 
-interface Treatment {
-  id: string;
-  patient_id: string;
-  treatment_cost: string;
-  treatment_date: Date; // Assuming you've converted treatment_date to a Date object
-  treatment_description: string;
-  medication_description: string;
-  patient_name: string; // Add this line
-}
-
-export default function BasicEditingGrid() {
+const DataRetrieve = ()=> {
   const { patientData, setPatientData, dataAdded } = useContext(PublicData);
   const [treatment, setTreatment] = useState<Treatment[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -58,9 +50,6 @@ export default function BasicEditingGrid() {
           ) {
             // If treatment_date is a Firestore Timestamp object, convert it to a Date object
             treatmentDate = new Date(treatment.treatment_date._seconds * 1000);
-          } else {
-            // Fallback to the current date if treatment_date is not in a recognized format
-            treatmentDate = new Date();
           }
 
           return {
@@ -110,7 +99,10 @@ export default function BasicEditingGrid() {
   };
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 100 },
+    { field: "id",
+      headerName: "ID",
+      width: 100,
+    },
     {
       field: "patient_name",
       headerName: "Patient Name",
@@ -121,9 +113,9 @@ export default function BasicEditingGrid() {
     {
       field: "history",
       headerName: "History",
-      width: 120,
+      width: 100,
       sortable: false,
-      align: "right",
+      align: "center",
       headerAlign: "center",
       renderCell: params => (
         <div>
@@ -179,16 +171,22 @@ export default function BasicEditingGrid() {
   ];
 
   return (
-    <div style={{ height: 500, margin:"auto" }}>
-      <DataGrid rows={patientData} columns={columns} disableRowSelectionOnClick/>
-      <Dialog open={openModal} onClose={() => setOpenModal(false)} maxWidth="xl">
-        <DialogTitle>
-          {treatment[0]?.patient_name}'s treatment histories
-        </DialogTitle>
-        <DialogContent>
-          <DataGrid rows={treatment} columns={columns2} getRowHeight={() => 'auto'}/>
-        </DialogContent>
-      </Dialog>
-    </div>
+    <Box className={styles.container}>
+      <Typography variant="h5" className={styles.title}>Patient Treatment History</Typography>
+      <div className={styles.dataContainer}>
+        <DataGrid rows={patientData} columns={columns} disableRowSelectionOnClick sx={{ padding: 2 ,border: 1 }}/>
+        <Dialog open={openModal} onClose={() => setOpenModal(false)} maxWidth="xl">
+          <DialogTitle>
+            {treatment[0]?.patient_name}'s treatment histories
+          </DialogTitle>
+          <DialogContent>
+            <DataGrid rows={treatment} columns={columns2} getRowHeight={() => 'auto'}/>
+          </DialogContent>
+        </Dialog>
+      </div>
+    </Box>
   );
 }
+
+
+export default DataRetrieve
