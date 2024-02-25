@@ -4,12 +4,12 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import logo from "../../assets/healthcare.png";
-// import blackLogo from "../../assets/black logo.png";
+import { DarkModeSwitch } from "react-toggle-dark-mode";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import { DarkModeSwitch } from "react-toggle-dark-mode";
 import { useContext } from "react";
 import { PublicData } from "../../utils/GlobalState";
+import styles from "./navbar.module.scss"
 
 
 const Navbar = () => {
@@ -27,13 +27,9 @@ const Navbar = () => {
       <CssBaseline />
       <AppBar
         component="nav"
+        className={styles.appbar}
         sx={{
-          background: darkMode ? "black" : "rgb(245, 245, 245, 0.5)",
-          maxWidth: "100%",
-          transition: "background 0.8s ease-in-out",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          padding: "0 20px"
+          background: darkMode ? "black" : "rgb(245, 245, 245, 0.5)"
         }}
       >
         <Toolbar
