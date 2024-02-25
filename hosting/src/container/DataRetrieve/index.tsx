@@ -19,6 +19,7 @@ const DataRetrieve = ()=> {
       const response = await fetchPatientData()
       if (response && response?.ok) {
         const data = await response.json();
+        console.log({data} )
         setPatientData(data.data);
       }
     } catch (error) {

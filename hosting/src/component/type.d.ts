@@ -20,6 +20,9 @@ interface PatientMedicationProps {
 interface DatePickerProps {
   treatmentDate: Date | null;
   handleDatePickerChange: (value: Date | null, context: PickerChangeHandlerContext<DateValidationError>) => void;
+}
+
+interface CostProps {
   costFormat: string;
   handleInputChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }

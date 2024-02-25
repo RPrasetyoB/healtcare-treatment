@@ -3,7 +3,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { ChangeEvent, ChangeEventHandler, useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { PublicData } from "../../utils/GlobalState";
-import { PatientData, PatientMedication, PatientTreatment, TreatmentDate } from "../../component";
+import { PatientData, PatientMedication, PatientTreatment, TreatmentCost, TreatmentDate } from "../../component";
 import styles from "./patientForm.module.scss";
 import { postTreatment } from "../../utils/fetchAPI";
 
@@ -17,7 +17,7 @@ const formatNumber = (value: string) => {
 
 const PatientForm = () => {
   // react states
-  const { patientData, setDataAdded, darkMode } = useContext(PublicData);
+  const { setDataAdded, darkMode } = useContext(PublicData);
   const [isSubmiting, setSubmiting] = useState(false);
   const [patientId, setPatientId] = useState("");
   const [patientName, setPatientName] = useState("");
@@ -142,9 +142,10 @@ const PatientForm = () => {
         onSubmit={handleSubmit}
       >
         <PatientData handleInputForm={handleInputForm} errors={errors} patientId={patientId} patientName={patientName} />
-        <PatientTreatment handleChangeTreatment={handleChangeTreatment} treatments={treatments}/>
+        <PatientTreatment handleChangeTreatment={handleChangeTreatment} treatments={treatments} />
         <PatientMedication handleChangeMedication={handleChangeMedication} medications={medications}/>
-        <TreatmentDate handleInputChange={handleInputChange} handleDatePickerChange={handleDatePickerChange} treatmentDate={treatmentDate} costFormat={costFormat}/>
+        <TreatmentDate handleDatePickerChange={handleDatePickerChange} treatmentDate={treatmentDate} />
+        <TreatmentCost handleInputChange={handleInputChange} costFormat={costFormat}/>
         <LoadingButton
           type="submit"
           loading={isSubmiting}
