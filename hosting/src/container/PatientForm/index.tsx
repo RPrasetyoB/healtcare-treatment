@@ -9,6 +9,9 @@ import { postTreatment } from "../../utils/fetchAPI";
 
 // currency formater
 const formatNumber = (value: string) => {
+  if(value === value.match(/0.*/)?.toString() || value === "00") {
+    return "0"
+  }
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
@@ -61,7 +64,12 @@ const PatientForm = () => {
   // treatment cost handleChange
   const handleInputChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (event) => {
     const newValue = event.target.value.replace(/\D/g, "");
-    setTreatmentCost(newValue);
+    if (newValue === "00") {
+      setTreatmentCost("0")
+    } else{
+      setTreatmentCost(newValue);
+    }
+    
     setCostFormat(formatNumber(newValue));
   };
 

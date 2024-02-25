@@ -98,7 +98,7 @@ const createPatientTreatmentService = async ({
 //get all registered patients
 const getAllPatientService = async (): Promise<PatientTreatmentDataPromise> => {
   try {
-    const snapshot = await db.collection("patient").get();
+    const snapshot = await db.collection("patient").orderBy('date', 'desc').get();
     const allPatients: Patient[] = [];
     snapshot.forEach((doc) => {
       allPatients.push({
