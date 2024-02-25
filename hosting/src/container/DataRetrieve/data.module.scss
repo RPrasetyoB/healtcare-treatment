@@ -3,10 +3,11 @@
     
     .title{
         text-align: center;
+        margin: 10px
     }
 
     .dataContainer{
-        height: 200px;
+        min-height: 200px;
         overflow-x: auto;
     }
 }
