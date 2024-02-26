@@ -106,7 +106,6 @@ const getAllPatientService = async (): Promise<PatientTreatmentDataPromise> => {
         ...doc.data(),
       });
     });
-    console.log(allPatients)
 
     if (!allPatients.length) {
       return {
