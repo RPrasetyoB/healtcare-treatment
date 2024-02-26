@@ -44,7 +44,7 @@ This project is a full stack application for managing patient data, treatment re
    ```
 
 2. Set up Back-end:
-   
+   open new terminal   
    ```bash
    cd functions
    npm install
@@ -54,14 +54,14 @@ This project is a full stack application for managing patient data, treatment re
    Wait until "Connected to Firestore database" appears in the terminal; then API will be ready to be consumed.
 
 3. Set up Front-end:
-   
+   open another new terminal
    ```bash
    cd hosting
    npm install
    npm start
    ```
 
-4. open browser and input url [http://localhost:5173](http://localhost:5173)
+5. open browser and input url [http://localhost:5173](http://localhost:5173)
    
    Note : do not run "npm update" because of specific version in some library
 
