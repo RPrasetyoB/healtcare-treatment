@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "healthcare-server",
   "scripts": {
-    "build": "tsc",
     "start": "tsc && node dist/index.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "deploy": "firebase deploy --only functions"
