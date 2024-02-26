@@ -44,7 +44,7 @@ This project is a full stack application for managing patient data, treatment re
    ```
 
 2. Set up Back-end: <br>
-   - change `.env.example` to `.env`
+   - change `.env.example` in /functions to `.env`
    - open new terminal
 
    ```bash
@@ -56,7 +56,7 @@ This project is a full stack application for managing patient data, treatment re
    Wait until "Connected to Firestore database" appears in the terminal; then API will be ready to be consumed.
 
 3. Set up Front-end: <br>
-   - change `.env.example` to `.env`
+   - change `.env.example` in /hosting to `.env`
    - open new terminal
 
    ```bash
