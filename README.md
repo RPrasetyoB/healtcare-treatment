@@ -44,7 +44,8 @@ This project is a full stack application for managing patient data, treatment re
    ```
 
 2. Set up Back-end:
-   open new terminal   
+   open new terminal
+
    ```bash
    cd functions
    npm install
@@ -55,13 +56,14 @@ This project is a full stack application for managing patient data, treatment re
 
 3. Set up Front-end:
    open another new terminal
+
    ```bash
    cd hosting
    npm install
    npm start
    ```
 
-5. open browser and input url [http://localhost:5173](http://localhost:5173)
+4. open browser and input url [http://localhost:5173](http://localhost:5173)
    
    Note : do not run "npm update" because of specific version in some library
 
