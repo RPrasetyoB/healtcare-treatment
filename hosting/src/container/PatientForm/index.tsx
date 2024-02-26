@@ -89,7 +89,6 @@ const PatientForm = () => {
     } else {
       setTreatmentCost(newValue);
     }
-
     setCostFormat(formatNumber(newValue));
   };
 
@@ -134,6 +133,7 @@ const PatientForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmiting(true);
+    // convert date to unix date
     const unixDate = treatmentDate
       ? Math.floor(treatmentDate.getTime() / 1000)
       : null;
@@ -148,6 +148,7 @@ const PatientForm = () => {
     try {
       const response = await postTreatment(values);
       if (response.success) {
+        // toaster notification
         toast.success(response.data.message, {
           position: "top-center",
           autoClose: 2000,

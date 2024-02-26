@@ -16,8 +16,6 @@ const Navbar = () => {
   const { darkMode, setDarkMode } = useContext(PublicData)
 
   const isMobile = useMediaQuery("(max-width:600px)");
-  // const isTable = useMediaQuery("(max-width:900px)");
-
   const toggleDarkMode = (checked: boolean) => {
     setDarkMode(checked);
   };
