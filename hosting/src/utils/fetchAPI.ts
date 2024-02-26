@@ -9,6 +9,7 @@ export const postTreatment = async (values: any) => {
             headers: {
                 "Content-Type": "application/json",
             },
+            mode: "no-cors",
             body: JSON.stringify(values),
         });
         const data = await response.json()
@@ -23,6 +24,7 @@ export const fetchPatientData = async () => {
     try {
         const response = await fetch(API_URL + "/v1/treatment", {
             method: "GET",
+            mode: "no-cors",
           });
         const data = await response.json()
         return data;
@@ -37,6 +39,7 @@ export const fetchTreatmentData = async (selectedId: string | null) => {
     try {
         const response = await fetch(API_URL + `/v1/treatment/${selectedId}`, {
             method: "GET",
+            mode: "no-cors",
         });
         const data = await response.json()
         return data;        
