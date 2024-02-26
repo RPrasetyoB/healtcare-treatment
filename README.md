@@ -91,9 +91,11 @@ This project is a full stack application for managing patient data, treatment re
 ### Overview
 
 - **Light Mode**: Provides a visually appealing interface with light color schemes for comfortable viewing.
+  
   ![light](https://github.com/RPrasetyoB/healtcare-treatment/assets/129088807/bebdcf10-0d71-42ca-a283-2a54caab928f)
-
+   <br>
 - **Dark Mode**: Offers an alternative interface with dark color schemes for reduced eye strain, especially in low-light environments.
+  <br>
   ![dark](https://github.com/RPrasetyoB/healtcare-treatment/assets/129088807/e07ecdf2-1628-4ce2-8533-925c97ae7e3a)
 
 ### API Integration
