@@ -43,7 +43,7 @@ This project is a full stack application for managing patient data, treatment re
    cd healtcare-treatment
    ```
 
-2. Set up Back-end:
+2. Set up Back-end: <br>
    open new terminal
 
    ```bash
@@ -54,7 +54,7 @@ This project is a full stack application for managing patient data, treatment re
    
    Wait until "Connected to Firestore database" appears in the terminal; then API will be ready to be consumed.
 
-3. Set up Front-end:
+3. Set up Front-end: <br>
    open another new terminal
 
    ```bash
