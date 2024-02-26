@@ -11,15 +11,11 @@ export const postTreatment = async (values: any) => {
             },
             body: JSON.stringify(values),
         });
-        if (!response.ok) {
-            console.error("Failed to submit treatment data.");
-            return false;
-        } else {
-            return true;
-        }
+        const data = await response.json()
+        return data
     } catch (error) {
         console.error("Error occurred while submitting treatment data:", error);
-        return false;
+        return error
     }
 }
 
@@ -28,15 +24,12 @@ export const fetchPatientData = async () => {
         const response = await fetch(API_URL + "/v1/treatment", {
             method: "GET",
           });
-        if (!response.ok) {
-            console.error("Failed to fetch patient data.");
-            return null;
-        } else {
-            return response;
-        }
+        const data = await response.json()
+        return data;
+        
     } catch (error) {
         console.error("Error occurred while fetching patient data:", error);
-        return null;
+        return error;
     }
 }
 
@@ -45,14 +38,10 @@ export const fetchTreatmentData = async (selectedId: string | null) => {
         const response = await fetch(API_URL + `/v1/treatment/${selectedId}`, {
             method: "GET",
         });
-        if (!response.ok) {
-            console.error("Failed to fetch treatment data.");
-            return null;
-        } else {
-            return response;
-        }
+        const data = await response.json()
+        return data;        
     } catch (error) {
         console.error("Error occurred while fetching treatment data:", error);
-        return null;
+        return error;
     }
 }

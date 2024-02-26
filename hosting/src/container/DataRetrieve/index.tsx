@@ -17,10 +17,8 @@ const DataRetrieve = ()=> {
   const fetchPatient = async () => {
     try {
       const response = await fetchPatientData()
-      if (response && response?.ok) {
-        const data = await response.json();
-        console.log({data} )
-        setPatientData(data.data);
+      if (response.success) {
+        setPatientData(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -30,10 +28,9 @@ const DataRetrieve = ()=> {
   const fetchTreatment = async () => {
     try {
       const response = await fetchTreatmentData(selectedId)
-      if (response?.ok) {
-        const data = await response.json();
+      if (response?.success) {
         // Process the treatments and medications
-        const treatmentDetails = data.data.treatments.map((treatment: any) => {
+        const treatmentDetails = response.data.treatments.map((treatment: any) => {
           // Determine the type of treatment_date and convert it to a JavaScript Date object
           let treatmentDate;
           if (typeof treatment.treatment_date === "number") {
@@ -53,11 +50,11 @@ const DataRetrieve = ()=> {
               treatment.treatment_description?.join(", ") ?? "",
             treatment_date: treatmentDate,
             treatment_cost: parseInt(treatment.treatment_cost, 10),
-            patient_name: data.data.patient.patient_name, // Include patient's name
+            patient_name: response.data.patient.patient_name, // Include patient's name
           };
         });
         // Process medication descriptions
-        const medicationDescriptions = data.data.medications
+        const medicationDescriptions = response.data.medications
           .map(
             (medication: any) =>
               medication.medication_description?.join(", ") ?? ""
