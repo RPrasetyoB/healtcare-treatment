@@ -43,8 +43,10 @@ This project is a full stack application for managing patient data, treatment re
    cd healtcare-treatment
    ```
 
-2. Set up Back-end:
-   
+2. Set up Back-end: <br>
+   - change `.env.example` in /functions to `.env`
+   - open new terminal
+
    ```bash
    cd functions
    npm install
@@ -53,8 +55,10 @@ This project is a full stack application for managing patient data, treatment re
    
    Wait until "Connected to Firestore database" appears in the terminal; then API will be ready to be consumed.
 
-3. Set up Front-end:
-   
+3. Set up Front-end: <br>
+   - change `.env.example` in /hosting to `.env`
+   - open new terminal
+
    ```bash
    cd hosting
    npm install
@@ -91,13 +95,14 @@ This project is a full stack application for managing patient data, treatment re
 ### Overview
 
 - **Light Mode**: Provides a visually appealing interface with light color schemes for comfortable viewing.
+   <br>
   
   ![light](https://github.com/RPrasetyoB/healtcare-treatment/assets/129088807/bebdcf10-0d71-42ca-a283-2a54caab928f)
-   <br>
 - **Dark Mode**: Offers an alternative interface with dark color schemes for reduced eye strain, especially in low-light environments.
   <br>
   
-  ![dark](https://github.com/RPrasetyoB/healtcare-treatment/assets/129088807/e07ecdf2-1628-4ce2-8533-925c97ae7e3a)
+  ![dark](https://github.com/RPrasetyoB/healtcare-treatment/assets/129088807/ae54e8de-b5e7-4f24-9bf1-047ab47a55f2)
+
 
 ### API Integration
 
