@@ -34,3 +34,4 @@ app.listen(server_port, ()=> {
 });
 // firebase functions
 exports.app = onRequest(app)
+export default app
