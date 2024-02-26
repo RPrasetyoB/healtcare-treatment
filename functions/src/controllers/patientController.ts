@@ -15,6 +15,7 @@ const createPatientTreatment = async (req: Request, res: Response, next: NextFun
         });
         if(response.success) {
             return res.status(200).json({
+                success: true,
                 message: response.message,
                 data: response.data
             })
@@ -32,11 +33,13 @@ const getAllPatients = async (req: Request, res: Response, next: NextFunction) =
         //return 201 if no patient / no data in DB
         if(response.status == 201){
             return res.status(201).json({
+                success:true,
                 message: response.message,
                 data: response.data
             })
         } if(response.success) {
             return res.status(200).json({
+                success: true,
                 message: response.message,
                 data: response.data
             })
@@ -55,11 +58,13 @@ const getPatientTreatmens = async (req: Request, res: Response, next: NextFuncti
         //return 201 if patient existed but no treatment data in DB
         if(response.status == 201){
             return res.status(201).json({
+                success: true,
                 message: response.message,
                 data: response.data
             })
         }else if(response.status == 200) {
             return res.status(200).json({
+                success: true,
                 message: response.message,
                 data: response.data
             })
