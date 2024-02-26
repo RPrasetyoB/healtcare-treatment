@@ -7,9 +7,6 @@
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "deploy": "firebase deploy --only functions"
   },
-  "engines": {
-    "node": "18"
-  },
   "main": "dist/index.js",
   "dependencies": {
     "cors": "^2.8.5",
