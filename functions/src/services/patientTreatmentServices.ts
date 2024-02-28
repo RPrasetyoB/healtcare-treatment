@@ -21,9 +21,9 @@ const createPatientTreatmentService = async ({
       // If patient exists, return existing data, and only add new treatment & new medication
       if (existingPatient.exists) {
         const patientData = existingPatient.data();
-        // Create new treatment
-        const treatmentId = uuidv4();
-        const newTreatmentRef = db.collection("treatment").doc(treatmentId);
+        // Create Document ID
+        const documentId = uuidv4();
+        const newTreatmentRef = db.collection("treatment").doc(documentId);
         newTreatmentObject = {
           patient_id: patientId,
           treatment_description: treatment,
@@ -31,9 +31,7 @@ const createPatientTreatmentService = async ({
           treatment_cost: cost,
         };
         transaction.set(newTreatmentRef, newTreatmentObject);
-        // Create new medication
-        const medicationId = uuidv4();
-        const newMedicationRef = db.collection("medication").doc(medicationId);
+        const newMedicationRef = db.collection("medication").doc(documentId);
         newMedicationObject = {
           patient_id: patientId,
           medication_description: medication,
