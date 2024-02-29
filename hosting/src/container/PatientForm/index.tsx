@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SelectChangeEvent, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -32,7 +33,7 @@ const formatNumber = (value: string) => {
 
 const PatientForm = () => {
   // react states
-  const { setDataAdded, darkMode } = useContext(PublicData);
+  const {patientData, setDataAdded, darkMode } = useContext(PublicData);
   const [isSubmiting, setSubmiting] = useState(false);
   const [patientId, setPatientId] = useState("");
   const [patientName, setPatientName] = useState("");
@@ -42,6 +43,7 @@ const PatientForm = () => {
   const [treatmentCost, setTreatmentCost] = useState("");
   const [costFormat, setCostFormat] = useState("");
   const [errors, setErrors] = useState({ patientId: "" });
+  const [isPatientExist, setPatientExist] = useState(false)
 
   // patient ID validator
   const validateField = (name: string, value: string) => {
@@ -65,13 +67,25 @@ const PatientForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [patientId]);
 
+  useEffect(() => {
+    const existingPatient = patientData.find((patient : PatientData) => patient.id === patientId);
+    if (existingPatient){
+      setPatientExist(!!existingPatient);
+    }else{
+      setPatientExist(false)
+    }
+  }, [patientId]);
+  console.log(isPatientExist)
   // setState with value from forms
   const handleInputForm = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
+    const existingPatient = patientData.find((patient : PatientData) => patient.id === patientId);
     if (name === "patientId") {
       setPatientId(value);
+    } else if (isPatientExist){
+      setPatientName(existingPatient!.patient_name)
     } else if (name === "patientName") {
       setPatientName(value);
     } else if (name === "treatmentCost") {

@@ -26,3 +26,8 @@ interface CostProps {
   costFormat: string;
   handleInputChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
+
+type PatientData = {
+  id: string;
+  patient_name: string;
+}

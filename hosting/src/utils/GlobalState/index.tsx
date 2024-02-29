@@ -3,11 +3,16 @@ import { ReactNode, createContext, useState, Dispatch, SetStateAction } from 're
 interface Props {
     children: ReactNode;
 }
+
+interface Patient{
+    id: string;
+    patient_name: string;
+}
 interface ContextProps {
     darkMode: boolean;
     dataAdded: boolean;
     setDarkMode: Dispatch<SetStateAction<boolean>>;
-    patientData : string[];
+    patientData : Patient[];
     setPatientData : Dispatch<SetStateAction<[]>>;
     setDataAdded: Dispatch<SetStateAction<boolean>>;
 }
